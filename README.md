@@ -2,7 +2,13 @@
 
 Syntax highlighting for ASCII [VCD](http://en.wikipedia.org/wiki/Value_change_dump) files as defined in the Verilog standard (as least as far I could reverse-engineer it).
 
-To install, simply drop the `VCD.tmLanguage` in your user packages path or clone the repository into your main packages path (see `Preferences, Browse Packages`).
+### Installation
+
+To install, simply drop the `VCD.tmLanguage` in your user packages path (see `Preferences, Browse Packages`).
+
+### Sources
+
+The `.JSON-tmLanguage` is contains the JSON-formatted original source file.
 
 ## License
 

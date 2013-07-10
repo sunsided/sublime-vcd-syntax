@@ -1,0 +1,220 @@
+{ 	"name": "Value Change Dump",
+  	"scopeName": "source.vcd",
+  	"fileTypes": ["vcd"],
+
+  	"repository": {
+  		"enabled_values": {
+			"patterns": [
+				{  	"name": "meta.vcd.value.simple",
+			    	"match": "(^([10xz])(.+)$)+",
+			     	"captures": {
+			     		"2": { "name": "keyword.other.vcd.value" },
+		          		"3": { "name": "variable.parameter.vcd.value.identifier" }
+					}
+			   	},
+			   	{  	"name": "meta.vcd.value.binary",
+			    	"match": "(^(b[10xz]+)\\s(.+)$)+",
+			     	"captures": {
+			     		"2": { "name": "keyword.other.vcd.value" },
+		          		"3": { "name": "variable.parameter.vcd.value.identifier" }
+					}
+			   	},
+			   	{  	"name": "meta.vcd.value.real",
+			    	"match": "(^(r([0-9]+(.[0-9]+)?|x|z)+)\\s(.+)$)+",
+			     	"captures": {
+			     		"2": { "name": "keyword.other.vcd.value" },
+		          		"5": { "name": "variable.parameter.vcd.value.identifier" }
+					}
+			   	}
+			]
+		},
+		"disabled_values": {
+			"patterns": [
+				{  	"name": "meta.vcd.value.simple",
+			    	"match": "(^((x)|(0|1|z))(.+)$)+",
+			     	"captures": {
+			     		"3": { "name": "keyword.other.vcd.value" },
+			     		"4": { "name": "invalid.vcd.value" },
+		          		"5": { "name": "variable.parameter.vcd.value.identifier" }
+					}
+			   	},
+			   	{  	"name": "meta.vcd.value.binary",
+			    	"match": "(^((bx+)|(b[10zx]+)|(b.+))\\s(.+)$)+",
+			     	"captures": {
+			     		"3": { "name": "keyword.other.vcd.value" },
+			     		"4": { "name": "invalid.vcd.value" },
+			     		"5": { "name": "invalid.vcd.value" },
+		          		"6": { "name": "variable.parameter.vcd.value.identifier" }
+					}
+			   	},
+			   	{  	"name": "meta.vcd.value.real",
+			    	"match": "(^((rx+)|(r.+))\\s(.+)$)+",
+			     	"captures": {
+			     		"3": { "name": "keyword.other.vcd.value" },
+			     		"4": { "name": "invalid.vcd.value" },
+		          		"5": { "name": "variable.parameter.vcd.value.identifier" }
+					}
+			   	}
+			]
+		}
+  	},
+
+  	"patterns": [
+	   	{  	"name": "meta.vcd.version",
+	    	"begin": "^(\\$)(version)",
+	     	"beginCaptures": {
+	     		"1": { "name": "keyword.control.vcd.dollar" },
+	     		"2": { "name": "entity.name.function.vcd.command" }
+			},
+			"patterns": [
+				{ 
+					"match": "(.*?)", 
+					"captures": { "1": { "name": "comment.block.vcd" } } 
+				}
+			],
+			"end": "(\\$)(end)$",
+			"endCaptures": {
+          		"1": { "name": "keyword.control.vcd.dollar" },
+          		"2": { "name": "entity.name.function.vcd.end" }
+			}
+	   	}, 
+	   	
+		{  	"name": "meta.vcd.comment",
+	    	"begin": "^(\\$)(comment)",
+	     	"beginCaptures": {
+	     		"1": { "name": "keyword.control.vcd.dollar" },
+	     		"2": { "name": "entity.name.function.vcd.command" }
+			},
+			"patterns": [
+				{ 
+					"match": "(.*?)", 
+					"captures": { "1": { "name": "comment.block.vcd" } } 
+				}
+			],
+			"end": "(\\$)(end)$",
+			"endCaptures": {
+          		"1": { "name": "keyword.control.vcd.dollar" },
+          		"2": { "name": "entity.name.function.vcd.end" }
+			}
+	   	}, 
+
+		{  	"name": "meta.vcd.date",
+	    	"begin": "^(\\$)(date)",
+	     	"beginCaptures": {
+	     		"1": { "name": "keyword.control.vcd.dollar" },
+	     		"2": { "name": "entity.name.function.vcd.command" }
+			},
+			"patterns": [
+				{ 
+					"match": "(.*?)", 
+					"captures": { "1": { "name": "comment.block.vcd" } } 
+				}
+			],
+			"end": "(\\$)(end)$",
+			"endCaptures": {
+          		"1": { "name": "keyword.control.vcd.dollar" },
+          		"2": { "name": "entity.name.function.vcd.end" }
+			}
+	   	}, 
+
+  		{  	"name": "meta.vcd.timescale",
+	    	"match": "(\\$)(timescale) (1|10|100) (s|ms|us|ns|ps|fs) (\\$)(end)$",
+	     	"captures": {
+	     		"1": { "name": "keyword.control.vcd.dollar" },
+	     		"2": { "name": "entity.name.function.vcd.command" },
+          		"3": { "name": "constant.numeric.vcd.number" },
+          		"4": { "name": "storage.type.vcd.unit" },
+          		"5": { "name": "keyword.control.vcd.dollar" },
+          		"6": { "name": "entity.name.function.vcd.end" }
+			}
+	   	},
+
+	   	{  	"name": "meta.vcd.scope",
+	    	"begin": "^(\\$)(scope) (begin|fork|function|module|task) (.*) (\\$)(end)$",
+	     	"beginCaptures": {
+	     		"1": { "name": "keyword.control.vcd.dollar" },
+	     		"2": { "name": "entity.name.function.vcd.command" },
+          		"3": { "name": "storage.type.vcd.scope.type" },
+          		"4": { "name": "entity.name.tag.vcd.scope.identifier" },
+          		"5": { "name": "keyword.control.vcd.dollar" },
+          		"6": { "name": "entity.name.function.vcd.end" }
+			},
+			"patterns": [
+				{  	"name": "meta.vcd.variable.definition",
+			    	"match": "^(\\$)(var) (event|integer|parameter|real|req|supply0|supply1|time|tri|triand|trior|trireg|tri0|tri1|wand|wire|wor) (\\d+) (.+) ([a-zA-Z0-9]+) (\\$)(end)$",
+			     	"captures": {
+			     		"1": { "name": "keyword.control.vcd.dollar" },
+			     		"2": { "name": "entity.name.function.vcd.command" },
+		          		"3": { "name": "storage.type.vcd.type" },
+		          		"4": { "name": "constant.numeric.vcd.bits" },
+		          		"5": { "name": "variable.parameter.type.vcd.identifier" },
+		          		"6": { "name": "entity.name.tag.vcd.reference" },
+		          		"7": { "name": "keyword.control.vcd.dollar" },
+		          		"8": { "name": "entity.name.function.vcd.end" }
+					}
+			   	}
+			],
+			"end": "^(\\$)(upscope) (\\$)(end)$",
+	     	"endCaptures": {
+	     		"1": { "name": "keyword.control.vcd.dollar" },
+	     		"2": { "name": "entity.name.function.vcd.command" },
+          		"3": { "name": "keyword.control.vcd.dollar" },
+          		"4": { "name": "entity.name.function.vcd.end" }
+			}
+	   	},
+
+	   	{  	"name": "meta.vcd.enddefinitions",
+	    	"match": "^(\\$)(enddefinitions) (\\$)(end)$",
+	     	"captures": {
+	     		"1": { "name": "keyword.control.vcd.dollar" },
+	     		"2": { "name": "entity.name.function.vcd.command" },
+          		"3": { "name": "keyword.control.vcd.dollar" },
+          		"4": { "name": "entity.name.function.vcd.end" }
+			}
+	   	},
+
+	   	{  	"name": "meta.vcd.event",
+	    	"begin": "^(#)(\\d+)$",
+	     	"beginCaptures": {
+	     		"1": { "name": "entity.name.function.vcd.event" },
+          		"2": { "name": "constant.numeric.vcd.command" }
+			},
+			"patterns": [
+				{"include": "#enabled_values"}
+			],
+			"end": "(?=^[#\\$])"
+	   	},
+
+	   	{  	"name": "meta.vcd.dump",
+	    	"begin": "^(\\$)(dumpall|dumpon)",
+	     	"beginCaptures": {
+	     		"1": { "name": "keyword.control.vcd.dollar" },
+	     		"2": { "name": "entity.name.function.vcd.command" }
+			},
+			"patterns": [
+				{"include": "#enabled_values"}
+			],
+			"end": "(\\$)(end)$",
+			"endCaptures": {
+          		"1": { "name": "keyword.control.vcd.dollar" },
+          		"2": { "name": "entity.name.function.vcd.end" }
+			}
+	   	},
+	   	{  	"name": "meta.vcd.dumpoff",
+	    	"begin": "^(\\$)(dumpoff)",
+	     	"beginCaptures": {
+	     		"1": { "name": "keyword.control.vcd.dollar" },
+	     		"2": { "name": "entity.name.function.vcd.command" }
+			},
+			"patterns": [
+				{"include": "#disabled_values"}
+			],
+			"end": "(\\$)(end)$",
+			"endCaptures": {
+          		"1": { "name": "keyword.control.vcd.dollar" },
+          		"2": { "name": "entity.name.function.vcd.end" }
+			}
+	   	}
+  	],
+  	"uuid": "3bbb19c5-1755-4c6a-9ccf-467b0bcc6aed"
+}
